@@ -5,7 +5,7 @@ from django.test import TestCase
 
 class TestPage(TestCase):
     def test_home_page(self):
-        response = self.client.get('/')
+        response = self.client.get('/party.html')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home.html')
-        self.assertContains(response, 'DjangoERP')
+        self.assertTemplateUsed(response, 'party.html')
+        self.assertContains(response, 'Party setup')
