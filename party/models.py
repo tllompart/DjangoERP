@@ -1,3 +1,5 @@
+
+
 from django.db import models
 
 # Create your models here.
@@ -11,3 +13,7 @@ class Party(models.Model):
     fax = models.CharField(max_length=9)
     email = models.CharField(max_length=60)
     website = models.CharField(max_length=60)
+
+
+class PartyCategory(models.Model):
+    name = models.CharField(max_length=32)
