@@ -1,5 +1,6 @@
 from django.db import models
-
+import json
+import re
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
@@ -39,7 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
-    objects = UserManager()
+    # objects = UserManager()
 
     class Meta:
         verbose_name = _('user')
@@ -79,7 +80,7 @@ class Group(DjangoGroup):
 class Permission(DjangoPermission):
     """A proxy for Permission model which uses a custom manager.
     """
-    objects = PermissionManager()
+    # objects = PermissionManager()
 
     class Meta:
         proxy = True
@@ -100,7 +101,7 @@ class ObjectPermission(models.Model):
     groups = models.ManyToManyField(
         Group, blank=True, related_name='objectpermissions', verbose_name=_("groups"))
 
-    objects = ObjectPermissionManager()
+    # objects = ObjectPermissionManager()
 
     class Meta:
         verbose_name = _('object permission')
