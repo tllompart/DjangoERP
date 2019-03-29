@@ -11,6 +11,13 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group as DjangoGroup, Permission as DjangoPermission
 
 
+def validate_json(value):
+    try:
+        json.loads(value)
+    except:
+        raise ValidationError(_('Ivalid JSON syntax'))
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     """A custom User model with timezone and language support.
     """
@@ -34,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=timezone.now, verbose_name=_('date joined'))
     language = models.CharField(max_length=5, null=True, choices=settings.LANGUAGES,
                                 default=settings.LANGUAGE_CODE, verbose_name=_("language"))
-    timezone = models.CharField(max_length=20, null=True, choices=settings.TIME_ZONES,
+    TimeZone = models.CharField(max_length=20, null=True, choices=settings.TIME_ZONES,
                                 default=settings.TIME_ZONE, verbose_name=_("timezone"))
 
     USERNAME_FIELD = 'username'
