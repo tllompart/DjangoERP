@@ -41,7 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=timezone.now, verbose_name=_('date joined'))
     language = models.CharField(max_length=5, null=True, choices=settings.LANGUAGES,
                                 default=settings.LANGUAGE_CODE, verbose_name=_("language"))
-    TimeZone = models.CharField(max_length=20, null=True, choices=settings.TIME_ZONES,
+    TimeZone = models.CharField(max_length=20, null=True,
+                                #choices=settings.TIME_ZONES,
                                 default=settings.TIME_ZONE, verbose_name=_("timezone"))
 
     USERNAME_FIELD = 'username'
@@ -63,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         return self.get_short_name()
 
-    @models.permalink
+    #@models.permalink
     def get_absolute_url(self):
         return ('user_detail', (), {"pk": self.pk})
 
@@ -102,7 +103,7 @@ class ObjectPermission(models.Model):
     """A generic object/row-level permission.
     """
     object_id = models.PositiveIntegerField()
-    perm = models.ForeignKey(Permission, verbose_name=_("permission"))
+    perm = models.ForeignKey(Permission, verbose_name=_("permission"), on_delete=models.CASCADE)
     users = models.ManyToManyField(
         User, blank=True, related_name='objectpermissions', verbose_name=_("users"))
     groups = models.ManyToManyField(
